@@ -1,0 +1,211 @@
+#include <stdio.h>
+// 2주차 과제
+
+//1. 다음 코드의 실행 결과를 예측해 보고,코드를 직접 실행해본 결과와 일치하는지확인하세요.
+/*
+int main(void) {
+
+	int arr[3];
+	int* pa = arr;
+	printf("%d %d", sizeof(arr), sizeof(pa));
+	
+	return 0;
+}
+*/
+//4 byte 크기의 arr이 3개 선언 되었으므로 arr의 크기는 12라고 예측
+//pa 또한 int로 선언이 되어있으므로 4 라고 예측
+
+
+/*
+//2. 다음 코드의 실행 결과를 예측해 보고, 코드를 직접 실행해본 결과와 일치하는지 확인하세요.
+int main(void) {
+
+	int arr[3];	//arr를 3개 선언
+	int* pa = arr;	// 포인터pa 선언 후 arr대입
+	
+	pa = pa + 1;	// arr에 초기값이 설정되어있지 않아 쓰레기값이 나올 것으로 예상
+	printf("%u ", pa);	
+
+	arr = arr + 1;	//pa와 마찬가지로 쓰레기값이 나올 것으로 예상
+	printf("%u ", arr);
+
+	return 0;
+}	//결과: pa는 쓰레기값, arr은 오류 :주소값은 바꿀 수 없기 때문
+*/
+
+
+
+
+//3. 다음과 같은 배열이 있습니다.포인터 pb를 사용해서 배열 요소를 처음부터 끝까지 출력하는 프로그램을 작성하세요.
+
+//double arrd[4] = { 12.4, 23.1, 15.7, 31.2 };
+//double* pb = arrd;
+
+/*
+int main(void) {
+	double arrd[4] = { 12.4, 23.1, 15.7, 31.2 };
+	double* pb = arrd;
+	
+	int i;
+	for (i = 0; i <= sizeof(arrd)/sizeof(double)-1; i++) {
+		printf("%.1f ", pb[i]);
+	}//arrd[4]라는 표현을 sizeof(arrd)/sizeof(double)-1이다
+}
+*/
+
+//4.  문자열 "banana"를 가리키는 포인터 p가 다음과 같이 선언되었습니다.
+/*
+//char* p = "banana";
+
+//다음과 같이 출력되도록 프로그램을 작성하세요.
+
+banana
+anana
+nana
+ana
+na
+a
+*/
+
+/*
+int main(void) {
+	char* p = "banana";
+	for (int i = 0; i < sizeof(p) / sizeof(char) - 1; i++) {
+		printf("%s\n", p + i);
+	}
+}*/
+
+/*
+	while (*p) {
+		printf("%s\n", p);
+		p++;
+	}
+}
+*/
+//*p는 변수 형태, banana 는 상수 형태
+
+
+/*
+int main(void) {
+	char str1[] = "Hello";
+
+	//printf("%s\n", str1[0]); //H가 출력될 것으로 예상했는데 오류가 뜸 이유를 모르겠다
+
+}*/
+
+//5. 문자열 "computerprogramming"에서 'e'가 처음으로 나타나는 위치를 찾아서 출력하는 프로그램을 작성하세요.
+
+//[방법1] 해당 문자열을 배열에 저장한 후 'e'에 해당하는 index 찾기
+
+//[방법2] 배열을 사용하지 않고 포인터를 사용해서 찾기
+
+//방법1
+/*
+	int main(void) {
+		char a[] = "computerprogramming";	//배열로 저장
+		int i = 0;			//변수 선언
+		for (i = 0; i < 19; i++) {	// for문으로 해당 index를 찾고 출력
+			if (a[i] == 'e') {
+				printf("a[%d]", i);
+				i++;
+			}
+		}
+	}
+	*/
+//방법 2
+/*
+int main(void) {
+	char* p = "computerprogramming";
+	int count = 0;
+	while (*p != 'e') {
+		count++;
+		p++;
+	}
+	printf("%d\n", count);
+	return 0;
+}
+*/
+//포인터를 활용한 방법2는 잘 모르겠습니다
+
+//3주차 실습문제 문제(1~4)
+//문제 1
+/*
+길이가 5인 int형 배열 arr를 선언하고 이를 1, 2, 3, 4, 5로 초기화 한 다음이 배열의 
+첫 번째 요소를 가리키는 포인터 변수 ptr을선언한다.그 다음 포인터 변수 ptr에 저장된
+값을 증가시키는 형태의 연산을 기반으로 배열요소에 접근하면서모든 배열요소의 값을
+2씩 증가시키고정상적으로 증가가 이뤄졌는지 확인해 보자.
+*/
+
+/*
+int main(void) {
+	int arr[5] = { 1,2,3,4,5 };
+	int* ptr = arr;
+	int i;
+
+	for (i = 0; i < sizeof(arr) / sizeof(int); i++) {
+		*(ptr+i) += 2;
+		printf("%d", arr[i]);
+	}
+}
+*/
+//문제 2
+/*문제 1에서는 포인터 변수 ptr에 저장된 값을 변경시켜가면서 배열요소에 접근했다.
+이번에는 포인터 변수 ptr에 저장된 값을 변경시키지 않고,
+ptr을 대상으로 덧셈 연산을 하여,그 결과로 반환되는 주소값을 통해 모든
+배열요소에 접근하여값을 2씩 증가시키고 결과를 확인해 보자.
+*/
+
+/*
+int main(void){
+	int arr[5] = { 1, 2, 3, 4, 5 };
+	int* ptr = arr;
+	int i;
+
+	for (i = 0; i < sizeof(arr) / sizeof(int); i++) {
+		*(ptr + i) += 2;
+
+		printf("%d ", *(ptr + i));
+}
+return 0;
+*/
+
+//문제 3
+/*
+길이가 5인 int형 배열 arr을 선언하고 이를 1, 2, 3, 4, 5로 초기화 한 다음
+이 배열의 마지막 요소를 가리키는 포인터 변수 ptr을 선언한다.
+그 다음 포인터 변수 ptr에 저장된 값을 감소시키는 형태의 연산을 기반으로 모든 배열요소에 
+접근하여 배열에 저장된 모든 정수를 더하여그 결과를 출력하는 프로그램을 작성해 보자.
+*/
+/*
+int main() {
+	int arr[5] = { 1,2,3,4,5 };
+	int* ptr = &arr[4];
+	int sum = 0;
+
+	for (int i = 0; i < sizeof(arr) / sizeof(int); i++) {
+		sum += *(ptr--);
+	}
+	printf("%d", sum);
+}
+*/
+
+//문제 4
+/*길이가 6인 int형 배열 arr을 선언하고 이를 1, 2, 3, 4, 5, 6으로 초기화 한 다음
+배열에 저장된 값의 순서가 6, 5, 4, 3, 2, 1이 되도록 변경해 보자.
+단, 배열의 앞과 뒤를 가리키는 포인터 변수 두 개를 선언해서
+이를 활용하여 저장된 값의 순서를 뒤바꿔야 한다.*/
+
+int main(void){
+	int arr[6] = { 1, 2, 3, 4, 5, 6 };
+	int* fptr = arr;
+	int* bptr = &arr[5];
+	int i;
+
+	for (i = 0; i < 3; i++) {
+		printf("%d ", *(bptr - i));
+	}
+	for (i = 0; i < 3; i++) {
+		printf("%d ", *(fptr + i));
+	}
+}
+
