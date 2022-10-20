@@ -1,0 +1,63 @@
+//Exam 실기
+
+// [문제1]
+void print_ddarr(int(*pa)[4]);
+int main(void) {
+		int arr[3][4] = { 
+		{1,2},
+		{3,4,5},
+		{6,7,8,9} };
+	int* p = arr;
+	print_ddarr(p);
+
+
+	return 0;
+}
+void print_ddarr(int(*pa)[4]) { // 두 개의 for 문을 이용해 한 번에 나타내고자 했는데 0이 포함이 되면서 결국 따로따로 구했다.
+	int i = 0, j = 0;
+	
+	for (i; i < 2; i++) {
+		printf("%d", (*pa)[i]);
+	}
+	printf("\n");
+
+	for (i=0; i < 3; i++) {
+		printf("%d", (*pa+4)[i]); 
+	}
+	printf("\n");
+
+	for (i=0; i < 4; i++) {
+		printf("%d", (*pa + 8)[i]);
+	}
+}
+
+
+
+// [문제2]
+void swap(char* x, char* y);
+int main() {
+	char first[20], second[20];
+	char* ptr1 = first;
+	char* ptr2 = second;
+	char* str = "문자열 입력: ";
+	 
+   
+	fputs(str,stdout);
+	fgets(ptr1, sizeof(first), stdin);, //computer 입력
+	fputs(str, stdout);
+	fgets(ptr2, sizeof(second), stdin); //programming 입력
+
+	for (int i = 0; i < 20; i++) {  // swap(ptr1,ptr2);만 하면 앞 글자만 바뀌어 (pomputer, crogramming)으로 돼서 for문으로 배열 전체를 돌려줌.
+		swap(ptr1+i, ptr2+i);
+	}
+	printf("%s%s", ptr1, ptr2);
+	return 0;
+}
+void swap(char *x,char *y) {
+	char temp[20];
+	char* ptr = temp;
+
+	ptr = *x;
+	*x = *y;
+	*y = ptr;
+}
