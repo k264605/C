@@ -211,38 +211,39 @@ int main(void){
 
 // 9주차 과제
 struct OnewordDictionary {
-	char Engwordstore[100][50];	//최대 30바이트의 문자열을 100개 저장가능
+	char Engwordstore[100][100];	//최대 30바이트의 문자열을 100개 저장가능
 	char Korwordstore[100][100];
 };
 
 struct EngKor {			//단어를 입력받아 사전에 넘겨주는 구조체
 	char word[20];
 	char meaning[100];
-	struct OnewordDictionary* PTR;
 };
 
 
 int main(void) {
 	struct EngKor getword;
 	struct OnewordDictionary OD  = { getword.word,getword.meaning};
+	int Exit;
+	int cnt=1;
 	while (1) {
 		fputs("영단어 입력: ", stdout);
 		fgets(getword.word, sizeof(getword.word), stdin);
 		fputs("뜻 입력: ", stdout);
 		fgets(getword.meaning, sizeof(getword.meaning), stdin);
+		fputs("종료를 원하면 Ctrl z ",stdout);
+		Exit = getchar();
 
 		for (int i = 0; i < 100; i++) {
-			for (int j = 0; j < 100; j++) {
-				if (OD.Engwordstore[i][j] == getword.word) {
-					
-					OD.Engwordstore[i][j] = '\0';
-					OD.Korwordstore[i][j] = '\0';
-					printf("%s \n", getword.word);
-					printf("%s", getword.meaning);
-				}
+			if (!strcmp(OD.Engwordstore + i, getword.word)) {
+				printf("%s \n", getword.word);
+				printf("%s \n", getword.meaning);
 			}
 		}
-
+		printf("담긴 단어 개수: %d \n", cnt);
+		cnt++;
+		if (Exit == EOF) 
+			break;
+		
 	}
-}
 /* 입력을 받아 배열 안에 저장은 되는 것 같은데 입력된 단어가 같을 때 배열에 저장하지 않고 모니터에 단어와 뜻만 출력이 안됨
